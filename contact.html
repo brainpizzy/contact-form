@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: grid;
+    gap: 10px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.8em;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span id="nameError" class="error"></span>
+      </div>
+      
+      
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <span id="emailError" class="error"></span>
+      </div>
+     
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea>
+        <span id="messageError" class="error"></span>
+      </div>
+      
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    
+    
+
+    const form = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const subjectInput = document.getElementById('subject');
+    const messageInput = document.getElementById('message');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const subjectError = document.getElementById('subjectError');
+    const messageError = document.getElementById('messageError');
+
+    form.addEventListener('submit', function(event) {
+      let valid = true;
+
+      if (nameInput.value.trim() === '') {
+        nameError.textContent = 'Name is required';
+        valid = false;
+      } else {
+        nameError.textContent = '';
+      }
+
+      if (emailInput.value.trim() === '') {
+        emailError.textContent = 'Email is required';
+        valid = false;
+      } else if (!validateEmail(emailInput.value)) {
+        emailError.textContent = 'Invalid email format';
+        valid = false;
+      } else {
+        emailError.textContent = '';
+      }
+
+      if (messageInput.value.trim() === '') {
+        messageError.textContent = 'Message is required';
+        valid = false;
+      } else {
+        messageError.textContent = '';
+      }
+
+      if (!valid) {
+        event.preventDefault();
+      }
+    });
+
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+  
+  </script>
+</body>
+</html>
